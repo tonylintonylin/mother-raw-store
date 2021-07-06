@@ -1,6 +1,7 @@
 .site-header {
     // border-bottom: 1px solid #e8e9eb;
     padding: 0 !important;
+    // height: 10px;
 }
 
 .site-header__mobile-nav {
@@ -15,4 +16,27 @@
     
     z-index: 999;
     position: relative;
+}
+
+.site-nav__main {
+    display: none;
+}
+
+@media (min-width: 72em){
+    .site-nav__main {
+        display: inline-block;
+    }
+    .site-header__icons-wrapper {
+        display: none;
+    }
+}
+
+.site-nav {
+    display: inline-block;
+}
+
+.site-header__search {
+    position: relative;
+    display: inline-block;
+    margin-left: 10px;
 }
