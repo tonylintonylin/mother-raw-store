@@ -52,3 +52,15 @@
         padding-right: 55px;
     }
 }
+
+@media only screen and (max-width: 749px){
+    .site-header {
+        border-bottom: 1px solid #e8e9eb;
+        padding: 0;
+    }
+
+    .site-header__logo {
+        max-width: 100px;
+        margin-bottom: 5px;
+    }
+}

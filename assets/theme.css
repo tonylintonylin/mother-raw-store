@@ -5068,10 +5068,11 @@ hr {
 .slideshow__title,
 .slideshow__subtitle {
   color: var(--color-overlay-title-text); }
-  @media only screen and (max-width: 749px) {
+  /* @media only screen and (max-width: 749px) {
     .slideshow__title,
     .slideshow__subtitle {
-      display: none; } }
+      display: none; } 
+    } */
 
 .slideshow__title--mobile {
   margin-bottom: 0; }
