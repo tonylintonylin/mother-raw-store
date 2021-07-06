@@ -2460,6 +2460,8 @@ hr {
     .slideshow__arrows .slick-dots li.slick-active a::before,
     .slideshow__arrows .slick-dots li.slick-active-mobile button::before,
     .slideshow__arrows .slick-dots li.slick-active-mobile a::before {
+            color: #B7D772 !important;
+
       opacity: 1; }
     .slideshow__arrows .slick-dots li button:active::before,
     .slideshow__arrows .slick-dots li .slick-active a::before,

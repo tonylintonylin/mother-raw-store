@@ -112,10 +112,9 @@
       <div class="slideshow__controls">
         {%- if section.blocks.size > 1 -%}
           {%- assign arrows_width = section.blocks.size | times: 18 | plus: 115 -%}
-          <div class="slideshow__arrows"
-               style="width: {{- arrows_width -}}px">
-            <button class="slideshow__arrow slideshow__arrow-previous" aria-label="{{ 'sections.slideshow.previous_slide' | t }}" data-slider-button>{% include 'icon-chevron-left' %}</button>
-            <button class="slideshow__arrow slideshow__arrow-next" aria-label="{{ 'sections.slideshow.next_slide' | t }}" data-slider-button data-slider-button-next>{% include 'icon-chevron-right' %}</button>
+          <div class="slideshow__arrows">
+            <!-- <button class="slideshow__arrow slideshow__arrow-previous" aria-label="{{ 'sections.slideshow.previous_slide' | t }}" data-slider-button>{% include 'icon-chevron-left' %}</button>
+            <button class="slideshow__arrow slideshow__arrow-next" aria-label="{{ 'sections.slideshow.next_slide' | t }}" data-slider-button data-slider-button-next>{% include 'icon-chevron-right' %}</button> -->
 
             <ul class="slick-dots" data-slider-indicators>
               {%- for block in section.blocks -%}
