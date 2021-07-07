@@ -44,3 +44,24 @@
         display: none;
     }
 }
+
+.slideshow__subtitle {
+    font-size: 20px;
+    font-family: Futura,sans-serif;
+    display: block;
+    color: #fff;
+}
+
+@media (min-width: 62em){
+    .slideshow__subtitle {
+        font-size: 26px;
+    }
+}
+
+@media only screen and (min-width: 750px){
+    .text-center .mega-subtitle {
+            font-family: Futura bold,sans-serif;
+
+        max-width: none;
+    }
+}
