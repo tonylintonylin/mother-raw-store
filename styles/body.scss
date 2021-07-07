@@ -13,3 +13,13 @@ body, button, input, select, textarea {
         letter-spacing: 3px;
     }
 }
+
+.h1, .uppercase, h1 {
+    text-transform: uppercase;
+}
+
+.uppercase {
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: .5px;
+}
