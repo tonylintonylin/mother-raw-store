@@ -13,6 +13,13 @@
     .slideshow {
         height: 775px !important;
     }
+
+    //arrows were commented out
+    .slideshow__arrows .slick-dots li a::before, .slideshow__arrows .slick-dots li button::before {
+        width: 12px;
+        height: 12px;
+    }
+
 }
 
 .slideshow__controls .slideshow__arrows, 
@@ -20,6 +27,12 @@
 .slideshow__controls:focus .slideshow__arrows, 
 .slideshow__controls:hover .slideshow__arrows {
     background-color: transparent;
+}
+
+//arrows were commented out
+.slideshow__arrows .slick-dots li {
+    width: 12px;
+    height: 12px;
 }
 
 .slick-slider .slick-dots li {
@@ -63,4 +76,8 @@
         font-family: Futura bold,sans-serif;
         max-width: none;
     }
+}
+
+.slideshow__arrows .slick-dots {
+    margin: -2.25rem .75rem;
 }

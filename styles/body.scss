@@ -37,3 +37,30 @@ body, button, input, select, textarea {
     font-size: 16px;
     letter-spacing: .5px;
 }
+
+@media (min-width: 62em){
+    .btn:not(.btn--small) {
+        width: 300px;
+        height: 75px;
+        line-height: 75px;
+        font-size: 18px;
+        font-weight: 700;
+    }
+}
+
+.btn, .btn:active, .btn:focus, .btn:hover {
+    background-color: transparent;
+    color: #282828;
+}
+
+.btn {
+    position: relative;
+    padding: 0 10px;
+    background-size: contain;
+    background-position: 0;
+    background-repeat: no-repeat;
+    font-size: 14px;
+    border: none;
+
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/btn-primary_500x.png?v=3044510708436779912);
+}
