@@ -1,0 +1,24 @@
+.site-nav {
+    display: inline-block;
+}
+
+.site-nav__main {
+    display: none;
+}
+
+@media (min-width: 72em){
+    .site-nav__main {
+        display: inline-block;
+    }
+}
+
+.site-nav__dropdown {
+    left: -16px;
+    background-color: #282828;
+    border: none;
+    padding: 0;
+}
+
+button.uppercase.site-nav__link.site-nav__link--main.site-nav__link--button {
+    color: white;
+}

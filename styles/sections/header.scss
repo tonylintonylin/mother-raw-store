@@ -19,21 +19,10 @@
     position: relative;
 }
 
-.site-nav__main {
-    display: none;
-}
-
 @media (min-width: 72em){
-    .site-nav__main {
-        display: inline-block;
-    }
     .site-header__icons-wrapper {
         display: none;
     }
-}
-
-.site-nav {
-    display: inline-block;
 }
 
 .site-header__search {
