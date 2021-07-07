@@ -7,6 +7,20 @@ body, button, input, select, textarea {
     line-height: 1.5;
 }
 
+.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 17.5px;
+    margin-top: 0px;
+    margin-right: 0px;
+    margin-bottom: 17.5px;
+    margin-left: 0px;
+    font-family: Futura,sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 1.2;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
 @media (min-width: 62em){
     .h1, h1 {
         font-size: 86px;
