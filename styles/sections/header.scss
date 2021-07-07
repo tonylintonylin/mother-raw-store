@@ -71,7 +71,7 @@
 
 @media (min-width: 72em){
     .announcement-bar__message {
-        padding: 20px 300px 15px;
+        padding: 18px 300px 11px;
     }
 }
 
@@ -130,4 +130,8 @@
 
 .cart-count--hidden {
     display: none;
+}
+
+svg.icon.icon-cart {
+    margin-left: 30px;
 }
