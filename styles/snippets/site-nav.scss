@@ -22,3 +22,30 @@
 button.uppercase.site-nav__link.site-nav__link--main.site-nav__link--button {
     color: white;
 }
+
+.site-nav__dropdown--left:not(.site-nav__dropdown--centered) {
+    left: -16px;
+}
+
+span.site-nav__label{
+    font-weight: 700;
+}
+
+@media (min-width: 85em){
+    .site-nav__dropdown .site-nav__link {
+        padding: 15px 25px;
+    }
+}
+
+@media (min-width: 85em){
+    .site-nav .site-nav__link {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+@media (min-width: 85em){
+    .site-nav__dropdown .site-nav__link {
+        padding: 15px 25px;
+    }
+}

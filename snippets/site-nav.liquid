@@ -39,7 +39,7 @@
                   {% for childlink in link.links %}
                     <li class="site-nav__childlist-item">
                       <a href="{{ childlink.url }}"
-                        class="site-nav__link site-nav__child-link site-nav__child-link--parent"
+                        class="uppercase site-nav__link site-nav__child-link site-nav__child-link--parent"
                         {% if childlink.current %} aria-current="page"{% endif %}
                       >
                         <span class="site-nav__label">{{ childlink.title | escape }}</span>
@@ -50,7 +50,7 @@
                         {% for grandchildlink in childlink.links %}
                           <li>
                             <a href="{{ grandchildlink.url }}"
-                            class="site-nav__link site-nav__child-link"
+                            class="uppercase site-nav__link site-nav__child-link"
                             {% if grandchildlink.current %} aria-current="page"{% endif %}
                           >
                               <span class="site-nav__label">{{ grandchildlink.title | escape }}</span>
@@ -71,7 +71,7 @@
               {% for childlink in link.links %}
                 <li>
                   <a href="{{ childlink.url }}"
-                  class="site-nav__link site-nav__child-link{% if forloop.last %} site-nav__link--last{% endif %}"
+                  class="uppercase site-nav__link site-nav__child-link{% if forloop.last %} site-nav__link--last{% endif %}"
                   {% if childlink.current %} aria-current="page"{% endif %}
                 >
                     <span class="site-nav__label">{{ childlink.title | escape }}</span>
