@@ -17,6 +17,13 @@
 }
 
 //collection li
+
+@media only screen and (min-width: 1300px){
+    .widescreen--one-third {
+        width: 32.22%;
+    }
+}
+
 @media only screen and (min-width: 990px) and (max-width: 1299px){
     .large--one-half {
         width: 50%;
@@ -89,4 +96,27 @@
 .price-item {
     color: #282828 !important;
     font-weight: 700;
+}
+
+//button
+
+.grid-view-item__button-wrapper {
+    text-align: center;
+}
+
+@media (min-width: 750px){
+    .grid-view-item__button-wrapper {
+        text-align: left;
+    }
+}
+
+.grid-view-item__button {
+    margin-top: 10px;
+}
+
+.btn, .btn--small {
+    width: 248px;
+    height: 62px;
+    line-height: 62px;
+    letter-spacing: .5px;
 }
