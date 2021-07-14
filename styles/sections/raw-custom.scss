@@ -1,0 +1,36 @@
+[class*=tear--] {
+    position: relative;
+    z-index: 8;
+}
+
+.tear--bottom-inner::after, .tear--top::before {
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/tear-top_2000x.png?v=13974200938373095895);
+}
+
+.tear--bottom:after, .tear--top:before {
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.tear--top:before {
+    // top: -44px;
+    top: -100px;
+    height: 45px;
+}
+
+.hero--white {
+    background-color: #fff;
+}
+
+.tear--bottom:after {
+    bottom: -35px;
+    height: 36px;
+}
+
+.tear--bottom::after, .tear--top-inner::before {
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/tear-bottom_2000x.png?v=4442257156047370017);
+}
