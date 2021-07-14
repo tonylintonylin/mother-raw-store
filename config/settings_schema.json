@@ -774,7 +774,7 @@
           "zh-TW": "基本尺寸"
         },
         "default": 15,
-        "min": 14,
+        "min": 10,
         "max": 20,
         "step": 1,
         "unit": "px"
