@@ -70,3 +70,22 @@ body, button, input, select, textarea {
 
     background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/btn-primary_500x.png?v=3044510708436779912);
 }
+
+//tears
+.tear--bottom:after, .tear--top:before {
+    content: "";
+    display: block;
+    width: 100%;
+    position: absolute;
+    background-size: cover;
+    background-position: 50%;
+}
+
+.tear--bottom:after {
+    bottom: -35px;
+    height: 36px;
+}
+
+.tear--top-inner::before {
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/tear-bottom_2000x.png?v=4442257156047370017);
+}
