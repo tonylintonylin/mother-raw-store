@@ -120,3 +120,13 @@
     line-height: 62px;
     letter-spacing: .5px;
 }
+
+//view all products
+.btn--secondary {
+    color: #fff !important;
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/btn-secondary_500x.png?v=1108411) !important;
+}
+
+.tear--bottom::after, .tear--top-inner::before {
+    background-image: url(//cdn.shopify.com/s/files/1/0051/4005/4105/t/25/assets/tear-bottom_2000x.png?v=4442257156047370017);
+}
