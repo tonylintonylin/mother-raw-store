@@ -1,0 +1,50 @@
+<div class="tear--top tear--bottom">
+    <div class="hero hero--x-large box ratio-container js hero--white lazyloaded" data-paroller="">
+      <div class="hero__inner hero__inner--left">
+        <div class="page-width text-center">
+          
+            <img class="hero__image" src="//cdn.shopify.com/s/files/1/0051/4005/4105/files/Copy_of_Untitled-6_1500x.png?v=1574953971">
+          
+        </div>
+        <div class="page-width page-width--narrow">
+          
+            <h2 class="mega-title h4">There's no such thing as an unhealthy love for plants.</h2>
+          
+          
+            <div class="rte-setting mega-subtitle"><p>Our products aren’t just made from plants, they’re made from an obsession with them.&nbsp;That's why you'll never find anything artificial in anything we make.&nbsp;If you’re here, it’s because you’re hungry for what’s real and craving for something that’s uncompromisingly good. We don’t mess with what’s good, we just bottle it.</p></div>
+          
+          
+            <div class="text-center">
+              <a href="/pages/about-us" class="btn hero__btn">
+                {{section.settings.button}}About US
+              </a>
+            </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% schema %}
+{
+    "name":"RAW Custom",
+    "settings": [
+        {
+            "type": "url",
+            "id": "button",
+            "label": "Button label"
+        },
+        {
+            "type": "text",
+            "id": "text",
+            "label": "text label"
+        }
+    ],
+    "presets": [
+        {
+            "category": "RAW",
+            "name":"RAW Custom"
+        }
+    ]
+}
+{% endschema %}
