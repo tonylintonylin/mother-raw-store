@@ -1,0 +1,9 @@
+.hero--white .hero__inner {
+    padding: 70px 0;
+}
+
+@media (min-width: 48em){
+    .hero__inner--center {
+        text-align: center;
+    }
+}
