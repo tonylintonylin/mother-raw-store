@@ -103,3 +103,77 @@ body, button, input, select, textarea {
         flex: 1 1 16%;
     }
 }
+
+//subscribe
+.site-footer__newsletter {
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    border-radius: 20px;
+    background-color: #fff;
+    color: #282828;
+    display: flex;
+    width: 100%;
+}
+
+@media only screen and (min-width: 750px){
+    .site-footer__newsletter {
+        max-width: none;
+    }
+}
+
+.newsletter__input {
+    width: 100%;
+    border-radius: 2px;
+}
+
+.site-footer__newsletter .newsletter__input {
+    margin: 8px 0;
+    border: none;
+    background: none;
+    font-size: 16px;
+}
+
+.site-footer__newsletter .newsletter__submit {
+    margin-top: 5px;
+    width: auto;
+    border-radius: 2px;
+}
+
+.site-footer__newsletter .newsletter__submit {
+    margin: 8px;
+    background-color: transparent;
+    color: #282828;
+    border: none;
+}
+
+.input-error-message {
+    display: none;
+    color: #d20000;
+    font-size: .875em;
+    margin-bottom: 11.66667px;
+}
+
+//icons
+@media only screen and (min-width: 750px){
+    .site-footer__social-icons {
+        text-align: left;
+    }
+}
+
+.site-footer__icon-list {
+    padding: 0;
+}
+
+.site-footer__social-icons {
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 750px){
+    .site-footer__social-icons li:first-of-type {
+        padding-left: 0;
+    }
+}
+
+.site-footer__social-icons li {
+    padding: 0 15px;
+}
