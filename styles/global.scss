@@ -177,3 +177,13 @@ body, button, input, select, textarea {
 .site-footer__social-icons li {
     padding: 0 15px;
 }
+
+.page-width {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.page-width--narrow {
+    max-width: 1040px;
+}
