@@ -1,0 +1,13 @@
+.jdgm-carousel-wrapper {
+    width: 90%;
+}
+
+.jdgm-carousel-title-and-link {
+    width: calc(100% - 81px);
+    margin: 0 auto 24px auto;
+}
+
+@media (min-width: 62em){
+    .h2, h2 {
+        font-size: 66px;
+    }

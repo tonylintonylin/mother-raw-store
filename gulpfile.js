@@ -12,7 +12,7 @@ gulp.task('sass', function () {
 
 gulp.task('watch', function () {
     gulp.watch('styles/**/*.scss', gulp.series('sass'))
-    themeKit.command('watch', {
-        env: 'development'
-    })
+    // themeKit.command('watch', {
+    //     env: 'development'
+    // })
 })
