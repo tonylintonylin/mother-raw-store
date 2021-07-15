@@ -1,363 +1,108 @@
-{%- assign social_icons = false -%}
-{%- assign inline_list = false -%}
-{%- assign locale_selector = false -%}
-{%- assign country_selector = false -%}
-{%- assign show_payment_icons = false -%}
-{%- assign show_selectors = false -%}
-
-
-{%- assign show_country_selector = section.settings.show_currency_selector  -%}
-{%- if show_country_selector and localization.available_countries.size > 1 -%}
-  {%- assign country_selector = true -%}
-{%- endif -%}
-
-{%- if section.settings.show_locale_selector and localization.available_languages.size > 1 -%}
-  {%- assign locale_selector = true -%}
-{%- endif -%}
-
-{%- if section.settings.show_payment_icons -%}
-  {%- unless shop.enabled_payment_types == empty -%}
-    {%- assign show_payment_icons = true -%}
-  {%- endunless -%}
-{%- endif -%}
-
-{%- if country_selector or locale_selector -%}
-  {%- assign show_selectors = true -%}
-{%- endif -%}
-
-{%- if
-  settings.social_twitter_link != blank
-  or settings.social_facebook_link != blank
-  or settings.social_pinterest_link != blank
-  or settings.social_instagram_link != blank
-  or settings.social_tumblr_link != blank
-  or settings.social_snapchat_link != blank
-  or settings.social_youtube_link != blank
-  or settings.social_vimeo_link != blank
-  or request.page_type == 'article'
-  or request.page_type == 'blog'
--%}
-  {%- assign social_icons = true -%}
-{%- endif -%}
-
-{%- assign payment_width_class = "one-half" -%}
-{%- if show_selectors -%}
-  {%- unless social_icons -%}
-    {%- assign payment_width_class = "" -%}
-  {%- endunless -%}
-{%- endif -%}
-
-{%- assign copyright_show_class = "medium-up--hide" -%}
-{%- if social_icons -%}
-  {%- unless show_selectors -%}
-    {%- assign copyright_show_class = "" -%}
-  {%- endunless -%}
-{%- endif -%}
-
-{%- case section.blocks.size -%}
-  {%- when 1 -%}
-    {%- assign footer_item = 'site-footer__item--full-width' -%}
-    {%- assign inline_list = true -%}
-  {%- when 2 -%}
-    {%- assign footer_item = 'site-footer__item--one-half' -%}
-    {%- assign inline_list = true -%}
-  {%- when 3 -%}
-    {%- assign footer_item = 'site-footer__item--one-third' -%}
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'newsletter' -%}
-        {%- assign footer_item = 'site-footer__item--one-quarter' -%}
-        {%- break -%}
-      {%- endif -%}
-    {%- endfor -%}
-  {%- when 4 -%}
-    {%- assign footer_item = 'site-footer__item--one-quarter' -%}
-  {%- when 5 -%}
-    {%- assign footer_item = 'site-footer__item--one-fifth' -%}
-{%- endcase -%}
-
-{% comment %} Create an appropriate hover color based on text color and brightness {% endcomment %}
-{%- assign footer_text_color = section.settings.color_footer_text -%}
-{%- assign footer_text_color_brightness = section.settings.color_footer_text | color_brightness -%}
-{%- if footer_text_color_brightness <= 26 -%}
-  {%- assign footer_text_color_hover = footer_text_color | color_lighten: 25 -%}
-{%- elsif footer_text_color_brightness <= 65 -%}
-  {%- assign footer_text_color_hover = footer_text_color | color_lighten: 15 -%}
-{%- else -%}
-  {%- assign footer_text_color_hover = footer_text_color | color_darken: 10 -%}
-{%- endif -%}
-
-<style>
-  .site-footer__hr {
-    border-bottom: 1px solid {{ section.settings.color_footer_bg | color_darken: 10 }};
-  }
-
-  .site-footer p,
-  .site-footer__linklist-item a,
-  .site-footer__rte a,
-  .site-footer h4,
-  .site-footer small,
-  .site-footer__copyright-content a,
-  .site-footer__newsletter-error,
-  .site-footer__social-icons .social-icons__link {
-    color: {{ section.settings.color_footer_text }};
-  }
-
-  .site-footer {
-    color: {{ section.settings.color_footer_text }};
-    background-color: {{ section.settings.color_footer_bg }};
-  }
-
-  .site-footer__rte a {
-    border-bottom: 1px solid {{ section.settings.color_footer_text }};
-  }
-
-  .site-footer__rte a:hover,
-  .site-footer__linklist-item a:hover,
-  .site-footer__copyright-content a:hover {
-    color: {{ footer_text_color_hover }};
-    border-bottom: 1px solid {{ footer_text_color_hover }};
-  }
-
-  .site-footer__social-icons .social-icons__link:hover {
-    color: {{ footer_text_color_hover }};
-  }
-</style>
-
-
-{%- capture payment_icon_markup -%}
-  {%- if show_payment_icons -%}
-    <div class="grid__item site-footer__payment-icons">
-      <span class="visually-hidden">{{ 'general.payment.method' | t }}</span>
-      <ul class="payment-icons list--inline site-footer__icon-list">
-        {%- for type in shop.enabled_payment_types -%}
-          <li class="payment-icon">
-            {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-          </li>
-        {%- endfor -%}
-      </ul>
-    </div>
-  {%- endif -%}
-{%- endcapture -%}
-
-<footer class="site-footer critical-hidden" role="contentinfo" data-section-id="{{ section.id }}" data-section-type="footer-section">
-  <div class="page-width">
-    <div class="site-footer__content">
-      {%- for block in section.blocks -%}
-
-        <div class="site-footer__item
-                    {% if section.blocks.size == 1 %} site-footer__item--center{% endif %}
-                    {{ footer_item }}
-                    {% if block.type == 'newsletter' and section.blocks.size == 3 %}site-footer-newsletter__one-half{% endif %}"
-             {{ block.shopify_attributes }}>
-          <div class="site-footer__item-inner site-footer__item-inner--{{ block.type }}">
-
-            {%- if block.settings.title -%}
-              <p class="h4">{{ block.settings.title | escape }}</p>
-            {%- endif -%}
-
-            {%- case block.type -%}
-              {%- when 'newsletter' -%}
-                <div class="site-footer__newsletter
-                          {% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %}">
-                  {%- assign formId = 'ContactFooter' -%}
-                  {% form 'customer', id: formId, novalidate: 'novalidate' %}
-                    {%- if form.posted_successfully? -%}
-                      <p class="form-message form-message--success" tabindex="-1" data-form-status>
-                        {{ 'general.newsletter_form.confirmation' | t }}
-                      </p>
-                    {%- endif -%}
-                    <input type="hidden" name="contact[tags]" value="newsletter">
-                    <div class="input-group {% if form.errors %} input-group--error{% endif %}">
-                      <input type="email"
-                        name="contact[email]"
-                        id="{{ formId }}-email"
-                        class="input-group__field newsletter__input{% if form.errors %} input--error{% endif %}"
-                        value="{{ form.email }}"
-                        placeholder="{{ 'general.newsletter_form.email_placeholder' | t }}"
-                        aria-label="{{ 'general.newsletter_form.email_placeholder' | t }}"
-                        aria-required="true"
-                        required
-                        autocorrect="off"
-                        autocapitalize="off"
-                        {% if form.errors %}
-                          aria-invalid="true"
-                          aria-describedby="{{ formId }}-email-error"
-                          data-form-status
-                        {% endif %}>
-                      <span class="input-group__btn">
-                        <button type="submit" class="btn newsletter__submit" name="commit" >
-                          <span class="newsletter__submit-text--large">{{ 'general.newsletter_form.submit' | t }}</span>
+  <style>
+    .site-footer__hr {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.0);
+    }
+  
+    .site-footer,
+    .site-footer a,
+    .site-footer__rte p {
+      color: #ffffff;
+      background-color: rgba(0,0,0,0);
+    }
+  
+    .site-footer a:hover {
+      color: #e6e6e6;
+    }
+  </style>
+  
+  <footer class="site-footer" role="contentinfo">
+    <h2 class="screenreader">Footer</h2>
+    <div class="page-width">
+      <div class="site-footer__content"><div class="site-footer__item
+                      
+                      site-footer__item--one-sixth
+                      
+                      site-footer__item--mobile-hide" "="">
+            <div class="site-footer__item-inner site-footer__item-inner--link_list"><h3 class="uppercase">Products &amp; Recipes</h3><ul class="site-footer__linklist
+                              "><li class="site-footer__linklist-item">
+                          <a href="/collections/all">Products</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/blogs/recipes">Recipes</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/pages/nutrition-info">Nutrition Info</a>
+                        </li></ul></div>
+          </div><div class="site-footer__item
+                      
+                      site-footer__item--one-sixth
+                      
+                      site-footer__item--mobile-hide" "="">
+            <div class="site-footer__item-inner site-footer__item-inner--link_list"><h3 class="uppercase">About Mother Raw</h3><ul class="site-footer__linklist
+                              "><li class="site-footer__linklist-item">
+                          <a href="/pages/about-us">About Us</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="https://motherraw.com/pages/contact-us">Contact Us</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/blogs/news">Blog</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/blogs/news-from-mother-raw">News</a>
+                        </li></ul></div>
+          </div><div class="site-footer__item
+                      
+                      site-footer__item--one-sixth
+                      
+                      " "="">
+            <div class="site-footer__item-inner site-footer__item-inner--link_list"><h3 class="uppercase">Customer Service</h3><ul class="site-footer__linklist
+                              "><li class="site-footer__linklist-item">
+                          <a href="/pages/store-locator">Store Locator</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/pages/faq">FAQ</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/pages/return-policy">Return Policy</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/pages/terms-of-service">Terms of Service</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="/pages/privacy-policy">Privacy Policy</a>
+                        </li></ul></div>
+          </div><div class="site-footer__item
+                      
+                      site-footer__item--one-sixth
+                      
+                      " "="">
+            <div class="site-footer__item-inner site-footer__item-inner--link_list"><h3 class="uppercase">Contact Us</h3><ul class="site-footer__linklist
+                              "><li class="site-footer__linklist-item">
+                          <a href="tel:18554640117" aria-describedby="a11y-external-message">1-855-464-0117</a>
+                        </li><li class="site-footer__linklist-item">
+                          <a href="https://motherraw.com/pages/contact-us">Contact Info</a>
+                        </li></ul></div>
+          </div><div class="site-footer__item
+                      
+                      site-footer__item--one-third
+                      
+                      " "="">
+            <div class="site-footer__item-inner site-footer__item-inner--newsletter"><h3 class="uppercase">Subscribe for updates</h3><div class=""><form method="post" action="/contact#ContactFooter" id="ContactFooter" accept-charset="UTF-8" class="contact-form" novalidate="novalidate"><input type="hidden" name="form_type" value="customer"><input type="hidden" name="utf8" value="✓">
+                      
+  
+                      <label for="ContactFooter-email" class="visually-hidden">Subscribe to our mailing list</label>
+                      <div class="site-footer__newsletter">
+                        <input type="hidden" name="contact[tags]" value="newsletter">
+                        <input type="email" name="contact[email]" id="ContactFooter-email" class="newsletter__input" value="" placeholder="Email address" autocorrect="off" autocapitalize="off">
+                        <button type="submit" class="uppercase newsletter__submit" name="commit" id="Subscribe">
+                          Subscribe
                         </button>
-                      </span>
-                    </div>
-                    {% if form.errors contains 'email' %}
-                      <span id="{{ formId }}-email-error" class="input-error-message">
-                        <span class="visually-hidden">{{ 'general.accessibility.error' | t }} </span>
-                        {% include 'icon-error' %}
-                        <span class="site-footer__newsletter-error">{{ form.errors.translated_fields['email'] | capitalize }} {{ form.errors.messages['email'] }}.</span>
-                      </span>
-                    {% endif %}
-                  {% endform %}
-                </div>
-
-              {%- when 'text' -%}
-                {%- if block.settings.text != blank -%}
-                  <div class="site-footer__rte
-                              {% if section.blocks.size == 1 %} site-footer__single-block--centered{% endif %}">
-                      {{ block.settings.text }}
-                  </div>
-                {%- endif -%}
-
-              {%- when 'link_list' -%}
-                {%- assign footer_linklist = block.settings.menu -%}
-                  <ul class="site-footer__linklist
-                            {% if inline_list %}list--inline{% endif %}">
-                    {%- for link in linklists[footer_linklist].links -%}
-                      <li class="site-footer__linklist-item">
-                        <a href="{{ link.url }}"
-                          {% if link.current %} aria-current="page"{% endif %}
-                        >
-                          {{ link.title | escape }}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-
-            {%- endcase -%}
-
-          </div>
-        </div>
-      {%- endfor -%}
+                        <span id="ContactFooter-email-error" class="input-error-message"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 14 14"><path d="M7 14A7 7 0 1 0 7 0a7 7 0 0 0 0 14zm-1.05-3.85A1.05 1.05 0 1 1 7 11.2a1.008 1.008 0 0 1-1.05-1.05zm.381-1.981l-.266-5.25h1.841l-.255 5.25h-1.32z"></path></svg>  .</span>
+                      </div>
+                    </form>
+                  </div><ul class="list--inline site-footer__social-icons social-icons site-footer__icon-list"><li>
+                          <a class="social-icons__link" href="http://facebook.com/motherraw" aria-describedby="a11y-external-message"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-facebook" viewBox="0 0 20 20"><path fill="#444" d="M18.05.811q.439 0 .744.305t.305.744v16.637q0 .439-.305.744t-.744.305h-4.732v-7.221h2.415l.342-2.854h-2.757v-1.83q0-.659.293-1t1.073-.342h1.488V3.762q-.976-.098-2.171-.098-1.634 0-2.635.964t-1 2.72V9.47H7.951v2.854h2.415v7.221H1.413q-.439 0-.744-.305t-.305-.744V1.859q0-.439.305-.744T1.413.81H18.05z"></path></svg><span class="icon__fallback-text">Facebook</span>
+                          </a>
+                        </li><li>
+                          <a class="social-icons__link" href="http://instagram.com/motherraw" aria-describedby="a11y-external-message"><svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-instagram" viewBox="0 0 512 512"><path d="M256 49.5c67.3 0 75.2.3 101.8 1.5 24.6 1.1 37.9 5.2 46.8 8.7 11.8 4.6 20.2 10 29 18.8s14.3 17.2 18.8 29c3.4 8.9 7.6 22.2 8.7 46.8 1.2 26.6 1.5 34.5 1.5 101.8s-.3 75.2-1.5 101.8c-1.1 24.6-5.2 37.9-8.7 46.8-4.6 11.8-10 20.2-18.8 29s-17.2 14.3-29 18.8c-8.9 3.4-22.2 7.6-46.8 8.7-26.6 1.2-34.5 1.5-101.8 1.5s-75.2-.3-101.8-1.5c-24.6-1.1-37.9-5.2-46.8-8.7-11.8-4.6-20.2-10-29-18.8s-14.3-17.2-18.8-29c-3.4-8.9-7.6-22.2-8.7-46.8-1.2-26.6-1.5-34.5-1.5-101.8s.3-75.2 1.5-101.8c1.1-24.6 5.2-37.9 8.7-46.8 4.6-11.8 10-20.2 18.8-29s17.2-14.3 29-18.8c8.9-3.4 22.2-7.6 46.8-8.7 26.6-1.3 34.5-1.5 101.8-1.5m0-45.4c-68.4 0-77 .3-103.9 1.5C125.3 6.8 107 11.1 91 17.3c-16.6 6.4-30.6 15.1-44.6 29.1-14 14-22.6 28.1-29.1 44.6-6.2 16-10.5 34.3-11.7 61.2C4.4 179 4.1 187.6 4.1 256s.3 77 1.5 103.9c1.2 26.8 5.5 45.1 11.7 61.2 6.4 16.6 15.1 30.6 29.1 44.6 14 14 28.1 22.6 44.6 29.1 16 6.2 34.3 10.5 61.2 11.7 26.9 1.2 35.4 1.5 103.9 1.5s77-.3 103.9-1.5c26.8-1.2 45.1-5.5 61.2-11.7 16.6-6.4 30.6-15.1 44.6-29.1 14-14 22.6-28.1 29.1-44.6 6.2-16 10.5-34.3 11.7-61.2 1.2-26.9 1.5-35.4 1.5-103.9s-.3-77-1.5-103.9c-1.2-26.8-5.5-45.1-11.7-61.2-6.4-16.6-15.1-30.6-29.1-44.6-14-14-28.1-22.6-44.6-29.1-16-6.2-34.3-10.5-61.2-11.7-27-1.1-35.6-1.4-104-1.4z"></path><path d="M256 126.6c-71.4 0-129.4 57.9-129.4 129.4s58 129.4 129.4 129.4 129.4-58 129.4-129.4-58-129.4-129.4-129.4zm0 213.4c-46.4 0-84-37.6-84-84s37.6-84 84-84 84 37.6 84 84-37.6 84-84 84z"></path><circle cx="390.5" cy="121.5" r="30.2"></circle></svg><span class="icon__fallback-text">Instagram</span>
+                          </a>
+                        </li></ul></div>
+          </div></div>
     </div>
-  </div>
-
-  <hr class="site-footer__hr">
-
-  {%- assign socials = "Facebook Twitter Pinterest Instagram Tumblr Snapchat YouTube Vimeo" | split: ' ' -%}
-
-  <div class="page-width">
-    <div class="grid grid--no-gutters small--text-center grid--footer-float-right">
-      {%- if show_selectors -%}
-        <div class="grid__item one-half small--one-whole">
-          {%- form 'localization', class: 'selectors-form', data-disclosure-form: '' -%}
-            {%- if locale_selector -%}
-              <div class="selectors-form__item">
-                <h2 class="visually-hidden" id="lang-heading">
-                  {{ 'general.language.dropdown_label' | t }}
-                </h2>
-
-                <div class="disclosure" data-disclosure-locale>
-                  <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="lang-list" aria-describedby="lang-heading" data-disclosure-toggle>
-                    {{ localization.language.endonym_name }}
-                  </button>
-                  <ul id="lang-list" class="disclosure-list" data-disclosure-list>
-                    {% for language in localization.available_languages %}
-                      <li class="disclosure-list__item {% if language.iso_code == localization.language.iso_code %}disclosure-list__item--current{% endif %}">
-                        <a class="disclosure-list__option" href="#" lang="{{ language.iso_code }}" {% if language.iso_code == localization.language.iso_code %}aria-current="true"{% endif %} data-value="{{ language.iso_code }}" data-disclosure-option>
-                          {{ language.endonym_name }}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                  <input type="hidden" name="locale_code" id="LocaleSelector" value="{{ form.current_locale.iso_code }}" data-disclosure-input/>
-                </div>
-              </div>
-            {%- endif -%}
-
-            {%- if country_selector -%}
-              <div class="selectors-form__item">
-                <h2 class="visually-hidden" id="country-heading">
-                  {{ 'general.country.dropdown_label' | t }}
-                </h2>
-                {%- assign current_currency_symbol = localization.country.currency.symbol -%}
-                {%- assign current_currency_iso_code = localization.country.currency.iso_code -%}
-                <div class="disclosure" data-disclosure-country>
-                  <button type="button" class="disclosure__toggle" aria-expanded="false" aria-controls="country-list" aria-describedby="country-heading" data-disclosure-toggle>
-                    {%- if current_currency_symbol -%}
-                      {{ localization.country.name }} ({{ current_currency_iso_code }} {{ current_currency_symbol }})
-                    {%- else -%}
-                      {{ localization.country.name }} ({{ current_currency_iso_code }})
-                    {%- endif -%}
-                  </button>
-                  <ul id="country-list" class="disclosure-list" data-disclosure-list>
-                    {% for country in form.available_countries %}
-                      {%- assign currency_symbol = country.currency.symbol -%}
-                      {%- assign currency_iso_code = country.currency.iso_code -%}
-                      <li class="disclosure-list__item {% if country.iso_code == localization.country.iso_code %}disclosure-list__item--current{% endif %}">
-                        <a class="disclosure-list__option" href="#" {% if country.iso_code == localization.country.iso_code %}aria-current="true"{% endif %} data-value="{{ country.iso_code }}" data-disclosure-option>
-                          {%- if currency_symbol -%}
-                            {{ country.name }} ({{ currency_iso_code }} {{ currency_symbol }})
-                          {%- else -%}
-                            {{ country.name }} ({{ currency_iso_code }})
-                          {%- endif -%}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                  <input type="hidden" name="country_code" id="CountrySelector" value="{{ localization.country.iso_code }}" data-disclosure-input/>
-                </div>
-              </div>
-            {%- endif -%}
-          {%- endform -%}
-        </div>
-      {%- else -%}
-        <div class="grid__item small--hide {{ payment_width_class }} {% if show_payment_icons %}site-footer-item-center-vertically{% endif %}">{{ payment_icon_markup }}</div>
-      {%- endif -%}
-
-      <div class="grid__item {% if show_selectors or show_payment_icons %}one-half{% endif %} small--one-whole site-footer-item-tall">
-        {%- if social_icons -%}
-          <ul class="list--inline site-footer__social-icons social-icons site-footer__icon-list">
-            {%- for social in socials -%}
-              {%- assign social_link = social | prepend: 'social_' | append: '_link' | downcase -%}
-              {%- assign icon_link = social | prepend: 'icon-' | downcase -%}
-              {%- if settings[social_link] != blank -%}
-                <li class="social-icons__item">
-                  <a class="social-icons__link" href="{{ settings[social_link] | escape }}" aria-describedby="a11y-external-message">
-                    {%- include icon_link -%}
-                    <span class="icon__fallback-text">{{ social }}</span>
-                  </a>
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-
-            {%- if request.page_type == 'blog' or request.page_type == 'article' -%}
-              <li>
-                <a class="social-icons__link" href="{{ shop.url }}{{ blog.url }}.atom">
-                  {% include 'icon-rss' %}
-                  <span class="icon__fallback-text">RSS</span>
-                </a>
-              </li>
-            {%- endif -%}
-          </ul>
-        {%- else -%}
-          <div class="small--hide site-footer-item-align-right {% if show_selectors or show_payment_icons %}site-footer-item-center-vertically{% endif %}">
-            <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}</small>
-            <small class="site-footer__copyright-content site-footer__copyright-content-powered-by">{{ powered_by_link }}</small>
-          </div>
-        {%- endif -%}
-      </div>
-
-      {%- if show_selectors -%}
-        <div class="grid__item small--hide {{ payment_width_class }}">{{ payment_icon_markup }}</div>
-      {%- endif -%}
-
-      <div class="grid__item medium-up--hide {{ payment_width_class }} small--one-whole">{{ payment_icon_markup }}</div>
-
-      {%- if social_icons and show_selectors -%}
-        <div class="grid__item small--hide site-footer-item-align-right {% if show_payment_icons %}one-half{% endif %}">
-          <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}</small>
-          <small class="site-footer__copyright-content site-footer__copyright-content--powered-by">{{ powered_by_link }}</small>
-        </div>
-      {%- endif -%}
-
-      <div class="grid__item small--one-whole {{ copyright_show_class }} site-footer-item-align-right">
-        <small class="site-footer__copyright-content">&copy; {{ 'now' | date: "%Y" }}, {{ shop.name | link_to: routes.root_url }}</small>
-        <small class="site-footer__copyright-content site-footer__copyright-content--powered-by">{{ powered_by_link }}</small>
-      </div>
-    </div>
-  </div>
-</footer>
-
+    
+  </footer>
 
 
 {% schema %}

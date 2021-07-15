@@ -94,3 +94,12 @@ body, button, input, select, textarea {
     padding-top: 0;
     padding-bottom: 0;
 }
+
+@media only screen and (min-width: 750px){
+    .site-footer__item--one-sixth {
+        -webkit-flex: 1 1 16%;
+        -moz-flex: 1 1 16%;
+        -ms-flex: 1 1 16%;
+        flex: 1 1 16%;
+    }
+}
