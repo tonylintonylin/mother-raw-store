@@ -26,3 +26,21 @@
 .jdgm-all-reviews-rating .jdgm-star:last-of-type.jdgm--on:before {
     content: "\e002";
 }
+
+//carousel
+.jdgm-carousel-wrapper .jdgm-widget.jdgm-carousel {
+    width: calc(100% - 81px);
+    margin: 0 auto;
+}
+
+.jdgm-carousel-wrapper .jdgm-carousel__item-wrapper {
+    height: 320px;
+}
+
+.jdgm-carousel-wrapper .jdgm-carousel-item__review {
+    height: calc(72% - 2.7em);
+}
+
+.jdgm-carousel-item__product-title {
+    color: #282828;
+}
