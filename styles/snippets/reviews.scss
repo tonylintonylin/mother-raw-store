@@ -11,3 +11,18 @@
     .h2, h2 {
         font-size: 66px;
     }
+}
+
+:not(.jdgm-prev-badge__stars)>.jdgm-star {
+    color: #b7d772;
+}
+
+.jdgm-star:last-of-type {
+    padding: 0 !important;
+
+}
+
+//half star
+.jdgm-all-reviews-rating .jdgm-star:last-of-type.jdgm--on:before {
+    content: "\e002";
+}
