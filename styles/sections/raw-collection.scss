@@ -27,6 +27,13 @@
 
 @media only screen and (min-width: 990px) and (max-width: 1299px){
     .large--one-half {
+        width: 43% !important;
+        margin-left: 3rem;
+    }
+}
+
+@media only screen and (min-width: 990px) and (max-width: 1299px){
+    .large--one-half {
         width: 50%;
     }
 }
